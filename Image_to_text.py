@@ -1,27 +1,33 @@
-# simple_calculator.py
-# A basic calculator mini project
+# simple_ocr.py
+# A simple OCR (Optical Character Recognition) project using Python
+# This script extracts text from an image and prints it.
 
-def add(x, y):
-    return x + y
+from PIL import Image
+import pytesseract
 
-def subtract(x, y):
-    return x - y
+# Update this with your image file name (place it in the same folder as this code)
+image_path = "sample_image.png"
 
-def multiply(x, y):
-    return x * y
+try:
+    # Open the image
+    img = Image.open(image_path)
 
-def divide(x, y):
-    if y != 0:
-        return x / y
-    else:
-        return "Cannot divide by zero!"
+    # Extract text using Tesseract OCR
+    extracted_text = pytesseract.image_to_string(img)
 
-if __name__ == "__main__":
-    print("Simple Calculator")
-    a = float(input("Enter first number: "))
-    b = float(input("Enter second number: "))
+    print("===== Extracted Text =====")
+    print(extracted_text)
 
-    print("Addition:", add(a, b))
-    print("Subtraction:", subtract(a, b))
-    print("Multiplication:", multiply(a, b))
-    print("Division:", divide(a, b))
+except FileNotFoundError:
+    print(f"Error: The file '{image_path}' was not found. Please add it to the project folder.")
+
+except Exception as e:
+    print("An error occurred:", e)
+
+# Note:
+# 1. You must install 'pillow' and 'pytesseract' before running:
+#    pip install pillow pytesseract
+# 2. Also install Tesseract OCR engine on your device:
+#    - Windows: https://github.com/UB-Mannheim/tesseract/wiki
+#    - Mac: brew install tesseract
+#    - Android (Pydroid 3): Install Tesseract plugin
